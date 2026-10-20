@@ -1,0 +1,67 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Student Details{% endblock title %}
+
+{% block main_content %}
+
+<section class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-6">
+
+            <div class="card shadow-sm border-0">
+
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Student Details</h4>
+                </div>
+
+                <div class="card-body p-4">
+
+                    <div class="mb-3">
+                        <strong>Name:</strong>
+                        <span>{{ student.name }}</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <strong>Roll Number:</strong>
+                        <span>{{ student.roll }}</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <strong>City:</strong>
+                        <span>{{ student.city }}</span>
+                    </div>
+
+                    <div class="mb-4">
+                        <strong>Date Added:</strong>
+                        <span>
+                            {{ student.date_added|date:"d M Y, h:i A" }}
+                        </span>
+                    </div>
+
+                    <div class="d-flex gap-2">
+
+                        <a href="{% url 'edit-student' student.id %}"
+                           class="btn btn-warning">
+                            Edit Student
+                        </a>
+
+                        <a href="{% url 'home' %}"
+                           class="btn btn-outline-secondary">
+                            Back
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock main_content %}
