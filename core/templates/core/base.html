@@ -1,14 +1,21 @@
-
+{% load static %}
 <!doctype html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <!-- Page load pe hi theme set karo, taaki flash na ho -->
+    <script>
+        (function () {
+            var saved = localStorage.getItem('theme');
+            var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-bs-theme', theme);
+        })();
+    </script>
+
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
-
-    {% load static %}
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
 
     <title>{% block title %}{% endblock title %} | Student Manager</title>
@@ -16,25 +23,21 @@
 
 <body>
 
-    <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="{% url 'home' %}">
-                Student Manager
-            </a>
+            <a class="navbar-brand fw-bold" href="{% url 'home' %}">Student Manager</a>
 
-            <a href="{% url 'add-student' %}" class="btn btn-light btn-sm">
-                + Add Student
-            </a>
+            <div class="d-flex gap-2">
+                <button type="button" id="themeToggle" class="btn btn-outline-light btn-sm">🌙</button>
+                <a href="{% url 'add-student' %}" class="btn btn-light btn-sm">+ Add Student</a>
+            </div>
         </div>
     </nav>
 
-    <!-- Main Content -->
     <main class="main-content">
         {% block main_content %}{% endblock main_content %}
     </main>
 
-    <!-- Footer -->
     <footer class="site-footer">
         <div class="container text-center">
             <p class="mb-1">Student Record Management System</p>
@@ -43,6 +46,24 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        var root = document.documentElement;
+        var toggleBtn = document.getElementById('themeToggle');
+
+        function updateIcon() {
+            toggleBtn.textContent = root.getAttribute('data-bs-theme') === 'dark' ? '☀️' : '🌙';
+        }
+
+        toggleBtn.addEventListener('click', function () {
+            var next = root.getAttribute('data-bs-theme') === 'dark' ? 'light' : 'dark';
+            root.setAttribute('data-bs-theme', next);
+            localStorage.setItem('theme', next);
+            updateIcon();
+        });
+
+        updateIcon();
+    </script>
 
     {% block myscripts %}{% endblock myscripts %}
 

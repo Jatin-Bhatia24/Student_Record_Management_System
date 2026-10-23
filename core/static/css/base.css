@@ -1,59 +1,214 @@
+/* =========================================================
+   THEME TOKENS
+   ========================================================= */
+:root {
+    /* Brand: Indigo -> Violet */
+    --brand-1: #4f46e5;
+    --brand-2: #7c3aed;
+    --brand-gradient: linear-gradient(135deg, var(--brand-1), var(--brand-2));
 
-/* General Page Styling */
+    /* Override Bootstrap's primary so every .text-primary / .bg-primary follows the theme */
+    --bs-primary: #4f46e5;
+    --bs-primary-rgb: 79, 70, 229;
+    --bs-link-color: #4f46e5;
+
+    /* Surfaces */
+    --page-bg: #f5f6fb;
+    --surface-bg: #ffffff;
+    --surface-soft: #f8f9fd;
+    --border-color: #e6e8f2;
+
+    /* Text */
+    --page-text: #1e293b;
+    --heading-text: #0f172a;
+    --muted-text: #64748b;
+
+    /* Effects */
+    --card-shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 8px 24px rgba(79, 70, 229, 0.07);
+    --card-shadow-hover: 0 4px 12px rgba(16, 24, 40, 0.06), 0 16px 32px rgba(79, 70, 229, 0.12);
+    --focus-ring: 0 0 0 4px rgba(99, 102, 241, 0.18);
+
+    /* Soft action buttons */
+    --view-bg: rgba(14, 165, 233, 0.12);   --view-fg: #0369a1;
+    --edit-bg: rgba(245, 158, 11, 0.14);   --edit-fg: #b45309;
+    --del-bg:  rgba(239, 68, 68, 0.12);    --del-fg:  #b91c1c;
+}
+
+[data-bs-theme="dark"] {
+    --bs-primary: #818cf8;
+    --bs-primary-rgb: 129, 140, 248;
+    --bs-link-color: #a5b4fc;
+
+    --page-bg: #0b1020;
+    --surface-bg: #131a2e;
+    --surface-soft: #18213a;
+    --border-color: #243049;
+
+    --page-text: #d7dcec;
+    --heading-text: #f1f5f9;
+    --muted-text: #94a3b8;
+
+    --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.25);
+    --card-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.35), 0 16px 32px rgba(99, 102, 241, 0.18);
+    --focus-ring: 0 0 0 4px rgba(129, 140, 248, 0.25);
+
+    --view-bg: rgba(56, 189, 248, 0.14);   --view-fg: #7dd3fc;
+    --edit-bg: rgba(251, 191, 36, 0.14);   --edit-fg: #fcd34d;
+    --del-bg:  rgba(248, 113, 113, 0.14);  --del-fg:  #fca5a5;
+}
+
+/* =========================================================
+   BASE
+   ========================================================= */
 body {
-    background-color: #f4f7fb;
-    font-family: Arial, sans-serif;
-    color: #243047;
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
+    background-color: var(--page-bg);
+    background-image:
+        radial-gradient(600px 300px at 10% -5%, rgba(99, 102, 241, 0.10), transparent 70%),
+        radial-gradient(500px 300px at 95% 0%, rgba(124, 58, 237, 0.08), transparent 70%);
+    background-repeat: no-repeat;
+    color: var(--page-text);
     min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    transition: background-color 0.25s ease, color 0.25s ease;
 }
 
-/* Headings */
-h2, h4, h5 {
-    font-weight: 600;
-    letter-spacing: 0.2px;
+h1, h2, h3, h4, h5 {
+    font-weight: 700;
+    letter-spacing: -0.2px;
 }
 
-/* Main Content */
+.text-muted {
+    color: var(--muted-text) !important;
+}
+
 .container {
     max-width: 1100px;
 }
 
-/* Cards */
+/* =========================================================
+   NAVBAR (gradient)
+   ========================================================= */
+.navbar.bg-primary {
+    background: var(--brand-gradient) !important;
+    padding: 14px 0;
+    box-shadow: 0 6px 20px rgba(79, 70, 229, 0.25) !important;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    letter-spacing: 0.2px;
+}
+
+.navbar .btn-light {
+    color: var(--brand-1);
+    font-weight: 600;
+    border: none;
+}
+
+.navbar .btn-outline-light {
+    border-color: rgba(255, 255, 255, 0.45);
+}
+
+.navbar .btn-outline-light:hover {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: #fff;
+    color: #fff;
+}
+
+/* =========================================================
+   CARDS
+   ========================================================= */
 .card {
-    border-radius: 14px;
+    background-color: var(--surface-bg);
+    border: 1px solid var(--border-color) !important;
+    border-radius: 18px;
     overflow: hidden;
+    box-shadow: var(--card-shadow) !important;
+    transition: box-shadow 0.25s ease, transform 0.25s ease, background-color 0.25s ease;
+}
+
+.card:hover {
+    box-shadow: var(--card-shadow-hover) !important;
 }
 
 .card-header {
-    padding: 16px 20px;
+    padding: 18px 24px;
+    border-bottom: none;
+}
+
+.card-header.bg-primary {
+    background: var(--brand-gradient) !important;
+}
+
+.card-header h4,
+.card-header h5 {
+    margin: 0;
 }
 
 .card-body {
-    background-color: #ffffff;
+    background-color: var(--surface-bg);
 }
 
-/* Table */
+.card-footer {
+    background-color: var(--surface-soft);
+    border-top: 1px solid var(--border-color);
+    padding: 16px 24px;
+}
+
+/* Total students number gets gradient text */
+.card-body h2.text-primary {
+    background: var(--brand-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 2.4rem;
+    font-weight: 800;
+}
+
+/* =========================================================
+   TABLE
+   ========================================================= */
 .table {
     margin-bottom: 0;
+    --bs-table-bg: transparent;
+    --bs-table-color: var(--page-text);
+    --bs-table-striped-bg: var(--surface-soft);
+    --bs-table-striped-color: var(--page-text);
+    --bs-table-hover-bg: rgba(99, 102, 241, 0.07);
+    --bs-table-hover-color: var(--page-text);
+    --bs-table-border-color: var(--border-color);
 }
 
 .table thead th {
-    color: #334155;
-    font-weight: 600;
+    background-color: var(--surface-soft);
+    color: var(--muted-text);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
     white-space: nowrap;
-    padding: 14px;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .table tbody td,
 .table tbody th {
-    padding: 13px 14px;
-    color: #475569;
+    padding: 14px 16px;
+    vertical-align: middle;
 }
 
-/* Buttons */
+.table tbody td:nth-child(2) {
+    font-weight: 600;
+    color: var(--heading-text);
+}
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
 .btn {
-    border-radius: 7px;
-    font-weight: 500;
+    border-radius: 10px;
+    font-weight: 600;
     transition: all 0.2s ease;
 }
 
@@ -61,34 +216,163 @@ h2, h4, h5 {
     transform: translateY(-1px);
 }
 
-/* Form Fields */
+.btn-primary {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #4f46e5;
+    --bs-btn-border-color: #4f46e5;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #4338ca;
+    --bs-btn-hover-border-color: #4338ca;
+    --bs-btn-active-bg: #3730a3;
+    --bs-btn-active-border-color: #3730a3;
+    --bs-btn-focus-shadow-rgb: 99, 102, 241;
+    background-image: var(--brand-gradient);
+    border: none;
+    box-shadow: 0 6px 16px rgba(79, 70, 229, 0.28);
+}
+
+.btn-primary:hover {
+    box-shadow: 0 8px 20px rgba(79, 70, 229, 0.38);
+}
+
+.btn-outline-secondary {
+    --bs-btn-color: var(--muted-text);
+    --bs-btn-border-color: var(--border-color);
+    --bs-btn-hover-bg: var(--surface-soft);
+    --bs-btn-hover-color: var(--heading-text);
+    --bs-btn-hover-border-color: var(--border-color);
+}
+
+/* Soft (tinted) action buttons inside the table */
+.table .btn-info,
+.table .btn-warning,
+.table .btn-danger {
+    border: none;
+    padding: 6px 14px;
+    font-size: 0.8rem;
+}
+
+.table .btn-info,
+.table .btn-info.text-white    { background: var(--view-bg); color: var(--view-fg) !important; }
+.table .btn-warning            { background: var(--edit-bg); color: var(--edit-fg); }
+.table .btn-danger             { background: var(--del-bg);  color: var(--del-fg); }
+
+.table .btn-info:hover         { background: #0ea5e9; color: #fff !important; }
+.table .btn-warning:hover      { background: #f59e0b; color: #fff; }
+.table .btn-danger:hover       { background: #ef4444; color: #fff; }
+
+/* Edit page: warning submit button */
+.card-body .btn-warning {
+    background: #f59e0b;
+    border: none;
+    color: #fff;
+}
+
+/* =========================================================
+   FORMS
+   ========================================================= */
 .form-control {
-    border: 1px solid #dbe3ef;
-    border-radius: 7px;
-    padding: 10px 12px;
+    background-color: var(--surface-bg);
+    color: var(--page-text);
+    border: 1.5px solid var(--border-color);
+    border-radius: 10px;
+    padding: 11px 14px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-control::placeholder {
+    color: var(--muted-text);
+    opacity: 0.7;
 }
 
 .form-control:focus {
-    border-color: #6c9df8;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
+    background-color: var(--surface-bg);
+    color: var(--page-text);
+    border-color: #6366f1;
+    box-shadow: var(--focus-ring);
 }
 
-/* Form Labels */
 label {
-    font-weight: 500;
+    font-weight: 600;
+    font-size: 0.9rem;
     margin-bottom: 6px;
-    color: #334155;
+    color: var(--heading-text);
 }
 
-/* Mobile Friendly */
+/* =========================================================
+   PAGINATION
+   ========================================================= */
+.pagination .page-link {
+    background-color: var(--surface-bg);
+    color: var(--muted-text);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    margin: 0 4px;
+    font-weight: 600;
+}
+
+.pagination .page-link:hover {
+    background-color: var(--surface-soft);
+    color: var(--brand-1);
+}
+
+.pagination .page-item.disabled .page-link {
+    background-color: var(--surface-soft);
+    opacity: 0.7;
+}
+
+/* =========================================================
+   STUDENT DETAILS PAGE
+   ========================================================= */
+.card-body strong {
+    color: var(--muted-text);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.card-body strong + span {
+    color: var(--heading-text);
+    font-size: 1.05rem;
+    font-weight: 500;
+}
+
+/* =========================================================
+   LAYOUT + FOOTER
+   ========================================================= */
+.main-content {
+    min-height: calc(100vh - 145px);
+    padding-bottom: 25px;
+}
+
+.site-footer {
+    background-color: var(--surface-bg);
+    border-top: 1px solid var(--border-color);
+    padding: 22px 0;
+    color: var(--muted-text);
+    transition: background-color 0.25s ease;
+}
+
+.site-footer p {
+    font-weight: 600;
+    color: var(--heading-text);
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
 @media (max-width: 576px) {
     .container {
         padding-left: 16px;
         padding-right: 16px;
     }
 
-    .card-header {
-        padding: 13px;
+    .card-header,
+    .card-footer {
+        padding: 14px 16px;
     }
 
     .table thead th,
@@ -96,38 +380,4 @@ label {
     .table tbody th {
         padding: 10px;
     }
-}
-
-/* Navbar */
-.navbar {
-    padding-top: 14px;
-    padding-bottom: 14px;
-}
-
-.navbar-brand {
-    letter-spacing: 0.3px;
-}
-
-/* Main content spacing */
-.main-content {
-    min-height: calc(100vh - 145px);
-    padding-bottom: 25px;
-}
-
-/* Footer */
-.site-footer {
-    background-color: #ffffff;
-    border-top: 1px solid #e2e8f0;
-    padding: 22px 0;
-    color: #64748b;
-}
-
-.site-footer p {
-    font-weight: 600;
-    color: #334155;
-}
-/* Student details */
-.card-body strong {
-    color: #334155;
-    margin-right: 5px;
 }

@@ -27,6 +27,15 @@
                         <strong>Roll Number:</strong>
                         <span>{{ student.roll }}</span>
                     </div>
+                    <div class="mb-3">
+    <strong>Phone:</strong>
+    <span>{{ student.phone|default:"-" }}</span>
+</div>
+
+<div class="mb-3">
+    <strong>Email:</strong>
+    <span>{{ student.email|default:"-" }}</span>
+</div>
 
                     <div class="mb-3">
                         <strong>City:</strong>
